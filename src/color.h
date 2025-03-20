@@ -6,7 +6,7 @@
 
 using color = vec3;
 
-void write_color(std::ostream& out, color& pixel_color) {
+void write_color(std::ostream& out, const color& pixel_color) {
 	auto r = pixel_color.x();
 	auto g = pixel_color.y();
 	auto b = pixel_color.z();
@@ -14,11 +14,11 @@ void write_color(std::ostream& out, color& pixel_color) {
 	//tranlating [0,1] to range of [0,255]
 	int rbyte = int(255.999 * r);
 	int gbyte  = int(255.999 * g);
-	int btype = int(255.999 * b);
+	int bbyte = int(255.999 * b);
 
 
 	//pixel color output
-	out << rbyte << ' ' << gbyte << ' ' << bbyte << '\n' ;
+	 out << rbyte << ' ' << gbyte << ' ' << bbyte << '\n';
 }
 #endif
 
