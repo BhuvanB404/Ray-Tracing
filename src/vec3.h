@@ -4,7 +4,6 @@
 #include <iostream>
 #include <cstdlib>
 
-// Forward declarations for random functions
 double random_double();
 double random_double(double min, double max);
 
@@ -68,10 +67,8 @@ public:
     static vec3 random(double min, double max);
 };
 
-// point3 is just an alias for vec3, but useful for geometric clarity in the code.
 using point3 = vec3;
 
-// Vector Utility Functions
 inline std::ostream& operator<<(std::ostream& out, const vec3& v) {
     return out << v.e[0] << ' ' << v.e[1] << ' ' << v.e[2];
 }
@@ -96,7 +93,6 @@ inline vec3 operator*(const vec3& v, double t) {
     return t * v;
 }
 
-// Fixed: Make division operator work with const vec3 objects
 inline vec3 operator/(const vec3& v, double t) {
     return (1/t) * v;
 }
@@ -117,13 +113,10 @@ inline vec3 unit_vector(const vec3& v) {
     return v / v.length();
 }
 
-// Alias for unit_vector
 inline vec3 unit_vec(const vec3& v) {
     return unit_vector(v);
 }
 
-// Forward declarations for functions that need random_double
-// These will be implemented in vec3.cpp or another source file
 vec3 random_in_unit_disk();
 vec3 random_unit_vector();
 vec3 random_on_hemisphere(const vec3& normal);

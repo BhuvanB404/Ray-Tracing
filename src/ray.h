@@ -3,7 +3,6 @@
 
 #include "vec3.h"
 
-// point3 is already defined in vec3.h
 
 class ray {
 public:
@@ -20,7 +19,7 @@ public:
         return orig + t * dir;
     }
 
-    // Add this to maintain compatibility with existing code
+
     point3 operator()(double t) const { return at(t); }
 
 private:

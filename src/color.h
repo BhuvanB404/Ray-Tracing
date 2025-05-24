@@ -18,13 +18,13 @@ void write_color(std::ostream &out, const color& pixel_color, int samples_per_pi
     auto g = pixel_color.y();
     auto b = pixel_color.z();
 
-    // Divide the color by the number of samples and gamma-correct for gamma=2.0
+        // smootheingng edges
     auto scale = 1.0 / samples_per_pixel;
     r = create_gamma(r * scale);
     g = create_gamma(g * scale);
     b = create_gamma(b * scale);
 
-    // Write the translated [0,255] value of each color component
+    // if more than 0.999 breaks code
     static const interval intensity(0.0, 0.999);
     out << static_cast<int>(256 * intensity.clamp(r)) << ' ' << static_cast<int>(256 * intensity.clamp(g)) << ' '<< static_cast<int>(256 * intensity.clamp(b)) << '\n';
 }

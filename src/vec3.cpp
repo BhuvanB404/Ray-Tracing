@@ -1,7 +1,6 @@
 #include "vec3.h"
 #include "rtweekend.h"
 
-// Implementation of static methods that need random_double
 vec3 vec3::random() {
     return vec3(random_double(), random_double(), random_double());
 }
@@ -10,7 +9,6 @@ vec3 vec3::random(double min, double max) {
     return vec3(random_double(min, max), random_double(min, max), random_double(min, max));
 }
 
-// Implementation of global functions that need random_double
 vec3 random_in_unit_disk() {
     while (true) {
         auto p = vec3(random_double(-1,1), random_double(-1,1), 0);

@@ -13,7 +13,7 @@
 color ray_c(const ray& r, const did_it_hit& world, int depth = 50) {
     hit_record rec;
 
-    // If we've exceeded the ray bounce limit, no more light is gathered
+
     if (depth <= 0)
         return color(0, 0, 0);
 
@@ -31,14 +31,14 @@ color ray_c(const ray& r, const did_it_hit& world, int depth = 50) {
 }
 
 int main() {
-    // World
+
     hittable_list world;
 
-    // Ground
+
     auto ground_material = std::make_shared<lambertian>(color(0.5, 0.5, 0.5));
     world.add(std::make_shared<sphere>(point3(0, -1000, 0), 1000, ground_material));
 
-    // Random small spheres
+
     for (int a = -11; a < 11; a++) {
         for (int b = -11; b < 11; b++) {
             auto choose_mat = random_double();
@@ -48,14 +48,14 @@ int main() {
                 shared_ptr<material> sphere_material;
 
                 if (choose_mat < 0.8) {
-                    // Diffuse
+
                     auto albedo = color(random_double() * random_double(),
                                       random_double() * random_double(),
                                       random_double() * random_double());
                     sphere_material = make_shared<lambertian>(albedo);
                     world.add(make_shared<sphere>(center, 0.2, sphere_material));
                 } else if (choose_mat < 0.95) {
-                    // Metal
+                    // Metallic baall
                     auto albedo = color(0.5 * (1 + random_double()),
                                       0.5 * (1 + random_double()),
                                       0.5 * (1 + random_double()));
@@ -63,7 +63,7 @@ int main() {
                     sphere_material = make_shared<metal>(albedo, fuzz);
                     world.add(make_shared<sphere>(center, 0.2, sphere_material));
                 } else {
-                    // Glass
+                    // Glassy bal;l
                     sphere_material = make_shared<dielectric>(1.5);
                     world.add(make_shared<sphere>(center, 0.2, sphere_material));
                 }
@@ -81,12 +81,10 @@ int main() {
     auto material3 = make_shared<metal>(color(0.7, 0.6, 0.5), 0.0);
     world.add(make_shared<sphere>(point3(4, 1, 0), 1.0, material3));
 
-    // Image
     const auto aspect_ratio = 16.0 / 9.0;
     const int image_width = 400;
     const int image_height = std::max(1, static_cast<int>(image_width / aspect_ratio));
 
-    // Open output file
     std::ofstream outfile("image.ppm");
     if (!outfile) {
         std::cerr << "Error: Failed to open output file\n";
@@ -101,7 +99,6 @@ int main() {
     auto aperture = 0.1;
     auto vfov = 20.0;
 
-    // Camera setup
     const auto theta = degrees_to_radians(vfov);
     const auto h = tan(theta/2);
     const auto viewport_height = 2.0 * h;
@@ -116,11 +113,9 @@ int main() {
     const auto vertical = dist_to_focus * viewport_height * v;
     const auto lower_left_corner = origin - horizontal/2 - vertical/2 - dist_to_focus*w;
     
-    // Render settings
     const int samples_per_pixel = 100;
     const int max_depth = 50;
     
-    // Render to file
     outfile << "P3\n" << image_width << ' ' << image_height << "\n255\n";
 
     for (int j = image_height - 1; j >= 0; --j) {
@@ -131,7 +126,6 @@ int main() {
                 auto u = (i + random_double()) / (image_width-1);
                 auto v = (j + random_double()) / (image_height-1);
                 
-                // Create ray from camera through pixel
                 ray r(origin, lower_left_corner + u*horizontal + v*vertical - origin);
                 pixel_color += ray_c(r, world, max_depth);
             }

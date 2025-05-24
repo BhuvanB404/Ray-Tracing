@@ -25,7 +25,7 @@ class sphere : public did_it_hit {
         if (discriminant < 0) return false;
         double sqrtd = sqrt(discriminant);
 
-        // Find the nearest root that lies in the acceptable range
+        // root 
         double root = (-half_b - sqrtd) / a;
         if (root <= ray_tmin || ray_tmax <= root) {
             root = (-half_b + sqrtd) / a;
@@ -37,7 +37,7 @@ class sphere : public did_it_hit {
         rec.p = r.at(rec.t);
         vec3 outward_normal = (rec.p - center) / radius;
         
-        // Set texture coordinates (spherical mapping)
+
         double theta = acos(-outward_normal.y());
         double phi = atan2(-outward_normal.z(), outward_normal.x()) + pi;
         rec.u = phi / (2*pi);
