@@ -11,7 +11,7 @@
 #define COLOR_OF_RAY 0xffd43b
 #define COLOR_RAY_BLUR 0xbd6800
 #define Ray_THICK  1
-#define RAYS_NUMBER 100
+#define RAYS_NUMBER 10000
 
 struct Circle
 {

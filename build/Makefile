@@ -57,10 +57,10 @@ RM = /usr/bin/cmake -E rm -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/bhuvan/Projects/RayTracing
+CMAKE_SOURCE_DIR = /home/bhuvan/Projects/Ray-Tracing
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/bhuvan/Projects/RayTracing/build
+CMAKE_BINARY_DIR = /home/bhuvan/Projects/Ray-Tracing/build
 
 #=============================================================================
 # Targets provided globally by CMake.
@@ -87,9 +87,9 @@ rebuild_cache/fast: rebuild_cache
 
 # The main all target
 all: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/bhuvan/Projects/RayTracing/build/CMakeFiles /home/bhuvan/Projects/RayTracing/build//CMakeFiles/progress.marks
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/bhuvan/Projects/Ray-Tracing/build/CMakeFiles /home/bhuvan/Projects/Ray-Tracing/build//CMakeFiles/progress.marks
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/bhuvan/Projects/RayTracing/build/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/bhuvan/Projects/Ray-Tracing/build/CMakeFiles 0
 .PHONY : all
 
 # The main clean target
@@ -129,29 +129,53 @@ ray/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/ray.dir/build.make CMakeFiles/ray.dir/build
 .PHONY : ray/fast
 
-ray.o: ray.cpp.o
-.PHONY : ray.o
+src/ray.o: src/ray.cpp.o
+.PHONY : src/ray.o
 
 # target to build an object file
-ray.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/ray.dir/build.make CMakeFiles/ray.dir/ray.cpp.o
-.PHONY : ray.cpp.o
+src/ray.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/ray.dir/build.make CMakeFiles/ray.dir/src/ray.cpp.o
+.PHONY : src/ray.cpp.o
 
-ray.i: ray.cpp.i
-.PHONY : ray.i
+src/ray.i: src/ray.cpp.i
+.PHONY : src/ray.i
 
 # target to preprocess a source file
-ray.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/ray.dir/build.make CMakeFiles/ray.dir/ray.cpp.i
-.PHONY : ray.cpp.i
+src/ray.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/ray.dir/build.make CMakeFiles/ray.dir/src/ray.cpp.i
+.PHONY : src/ray.cpp.i
 
-ray.s: ray.cpp.s
-.PHONY : ray.s
+src/ray.s: src/ray.cpp.s
+.PHONY : src/ray.s
 
 # target to generate assembly for a file
-ray.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/ray.dir/build.make CMakeFiles/ray.dir/ray.cpp.s
-.PHONY : ray.cpp.s
+src/ray.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/ray.dir/build.make CMakeFiles/ray.dir/src/ray.cpp.s
+.PHONY : src/ray.cpp.s
+
+src/vec3.o: src/vec3.cpp.o
+.PHONY : src/vec3.o
+
+# target to build an object file
+src/vec3.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/ray.dir/build.make CMakeFiles/ray.dir/src/vec3.cpp.o
+.PHONY : src/vec3.cpp.o
+
+src/vec3.i: src/vec3.cpp.i
+.PHONY : src/vec3.i
+
+# target to preprocess a source file
+src/vec3.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/ray.dir/build.make CMakeFiles/ray.dir/src/vec3.cpp.i
+.PHONY : src/vec3.cpp.i
+
+src/vec3.s: src/vec3.cpp.s
+.PHONY : src/vec3.s
+
+# target to generate assembly for a file
+src/vec3.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/ray.dir/build.make CMakeFiles/ray.dir/src/vec3.cpp.s
+.PHONY : src/vec3.cpp.s
 
 # Help Target
 help:
@@ -162,9 +186,12 @@ help:
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
 	@echo "... ray"
-	@echo "... ray.o"
-	@echo "... ray.i"
-	@echo "... ray.s"
+	@echo "... src/ray.o"
+	@echo "... src/ray.i"
+	@echo "... src/ray.s"
+	@echo "... src/vec3.o"
+	@echo "... src/vec3.i"
+	@echo "... src/vec3.s"
 .PHONY : help
 
 

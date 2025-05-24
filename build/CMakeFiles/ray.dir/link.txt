@@ -1,1 +1,1 @@
-/usr/bin/c++ CMakeFiles/ray.dir/ray.cpp.o -o ray 
+/usr/bin/c++ CMakeFiles/ray.dir/src/ray.cpp.o CMakeFiles/ray.dir/src/vec3.cpp.o -o ray 

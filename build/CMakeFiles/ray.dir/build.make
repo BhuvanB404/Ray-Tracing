@@ -53,10 +53,10 @@ RM = /usr/bin/cmake -E rm -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/bhuvan/Projects/RayTracing
+CMAKE_SOURCE_DIR = /home/bhuvan/Projects/Ray-Tracing
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/bhuvan/Projects/RayTracing/build
+CMAKE_BINARY_DIR = /home/bhuvan/Projects/Ray-Tracing/build
 
 # Include any dependencies generated for this target.
 include CMakeFiles/ray.dir/depend.make
@@ -69,31 +69,47 @@ include CMakeFiles/ray.dir/progress.make
 # Include the compile flags for this target's objects.
 include CMakeFiles/ray.dir/flags.make
 
-CMakeFiles/ray.dir/ray.cpp.o: CMakeFiles/ray.dir/flags.make
-CMakeFiles/ray.dir/ray.cpp.o: /home/bhuvan/Projects/RayTracing/ray.cpp
-CMakeFiles/ray.dir/ray.cpp.o: CMakeFiles/ray.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/bhuvan/Projects/RayTracing/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/ray.dir/ray.cpp.o"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/ray.dir/ray.cpp.o -MF CMakeFiles/ray.dir/ray.cpp.o.d -o CMakeFiles/ray.dir/ray.cpp.o -c /home/bhuvan/Projects/RayTracing/ray.cpp
+CMakeFiles/ray.dir/src/ray.cpp.o: CMakeFiles/ray.dir/flags.make
+CMakeFiles/ray.dir/src/ray.cpp.o: /home/bhuvan/Projects/Ray-Tracing/src/ray.cpp
+CMakeFiles/ray.dir/src/ray.cpp.o: CMakeFiles/ray.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/bhuvan/Projects/Ray-Tracing/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/ray.dir/src/ray.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/ray.dir/src/ray.cpp.o -MF CMakeFiles/ray.dir/src/ray.cpp.o.d -o CMakeFiles/ray.dir/src/ray.cpp.o -c /home/bhuvan/Projects/Ray-Tracing/src/ray.cpp
 
-CMakeFiles/ray.dir/ray.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/ray.dir/ray.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/bhuvan/Projects/RayTracing/ray.cpp > CMakeFiles/ray.dir/ray.cpp.i
+CMakeFiles/ray.dir/src/ray.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/ray.dir/src/ray.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/bhuvan/Projects/Ray-Tracing/src/ray.cpp > CMakeFiles/ray.dir/src/ray.cpp.i
 
-CMakeFiles/ray.dir/ray.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/ray.dir/ray.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/bhuvan/Projects/RayTracing/ray.cpp -o CMakeFiles/ray.dir/ray.cpp.s
+CMakeFiles/ray.dir/src/ray.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/ray.dir/src/ray.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/bhuvan/Projects/Ray-Tracing/src/ray.cpp -o CMakeFiles/ray.dir/src/ray.cpp.s
+
+CMakeFiles/ray.dir/src/vec3.cpp.o: CMakeFiles/ray.dir/flags.make
+CMakeFiles/ray.dir/src/vec3.cpp.o: /home/bhuvan/Projects/Ray-Tracing/src/vec3.cpp
+CMakeFiles/ray.dir/src/vec3.cpp.o: CMakeFiles/ray.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/bhuvan/Projects/Ray-Tracing/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/ray.dir/src/vec3.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/ray.dir/src/vec3.cpp.o -MF CMakeFiles/ray.dir/src/vec3.cpp.o.d -o CMakeFiles/ray.dir/src/vec3.cpp.o -c /home/bhuvan/Projects/Ray-Tracing/src/vec3.cpp
+
+CMakeFiles/ray.dir/src/vec3.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/ray.dir/src/vec3.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/bhuvan/Projects/Ray-Tracing/src/vec3.cpp > CMakeFiles/ray.dir/src/vec3.cpp.i
+
+CMakeFiles/ray.dir/src/vec3.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/ray.dir/src/vec3.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/bhuvan/Projects/Ray-Tracing/src/vec3.cpp -o CMakeFiles/ray.dir/src/vec3.cpp.s
 
 # Object files for target ray
 ray_OBJECTS = \
-"CMakeFiles/ray.dir/ray.cpp.o"
+"CMakeFiles/ray.dir/src/ray.cpp.o" \
+"CMakeFiles/ray.dir/src/vec3.cpp.o"
 
 # External object files for target ray
 ray_EXTERNAL_OBJECTS =
 
-ray: CMakeFiles/ray.dir/ray.cpp.o
+ray: CMakeFiles/ray.dir/src/ray.cpp.o
+ray: CMakeFiles/ray.dir/src/vec3.cpp.o
 ray: CMakeFiles/ray.dir/build.make
 ray: CMakeFiles/ray.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=/home/bhuvan/Projects/RayTracing/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Linking CXX executable ray"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=/home/bhuvan/Projects/Ray-Tracing/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Linking CXX executable ray"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/ray.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.
@@ -105,6 +121,6 @@ CMakeFiles/ray.dir/clean:
 .PHONY : CMakeFiles/ray.dir/clean
 
 CMakeFiles/ray.dir/depend:
-	cd /home/bhuvan/Projects/RayTracing/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/bhuvan/Projects/RayTracing /home/bhuvan/Projects/RayTracing /home/bhuvan/Projects/RayTracing/build /home/bhuvan/Projects/RayTracing/build /home/bhuvan/Projects/RayTracing/build/CMakeFiles/ray.dir/DependInfo.cmake "--color=$(COLOR)"
+	cd /home/bhuvan/Projects/Ray-Tracing/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/bhuvan/Projects/Ray-Tracing /home/bhuvan/Projects/Ray-Tracing /home/bhuvan/Projects/Ray-Tracing/build /home/bhuvan/Projects/Ray-Tracing/build /home/bhuvan/Projects/Ray-Tracing/build/CMakeFiles/ray.dir/DependInfo.cmake "--color=$(COLOR)"
 .PHONY : CMakeFiles/ray.dir/depend
 

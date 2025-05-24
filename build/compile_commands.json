@@ -1,0 +1,14 @@
+[
+{
+  "directory": "/home/bhuvan/Projects/Ray-Tracing/build",
+  "command": "/usr/bin/g++ -g -std=gnu++17 -o CMakeFiles/ray.dir/src/ray.cpp.o -c /home/bhuvan/Projects/Ray-Tracing/src/ray.cpp",
+  "file": "/home/bhuvan/Projects/Ray-Tracing/src/ray.cpp",
+  "output": "CMakeFiles/ray.dir/src/ray.cpp.o"
+},
+{
+  "directory": "/home/bhuvan/Projects/Ray-Tracing/build",
+  "command": "/usr/bin/g++ -g -std=gnu++17 -o CMakeFiles/ray.dir/src/vec3.cpp.o -c /home/bhuvan/Projects/Ray-Tracing/src/vec3.cpp",
+  "file": "/home/bhuvan/Projects/Ray-Tracing/src/vec3.cpp",
+  "output": "CMakeFiles/ray.dir/src/vec3.cpp.o"
+}
+]

@@ -1,96 +1,141 @@
 #include "raytracing.h"
-
-#include "it_hit.h"
-#include "objects.h"
 #include "hit_objects.h"
+#include "objects.h"
+#include "material.h"
+#include "color.h"
 
-#include<fstream>
+#include <fstream>
+#include <memory>
+#include <vector>
+#include <string>
+#include <sstream>
 
-using namespace std;
+color ray_c(const ray& r, const did_it_hit& world, int depth = 50) {
+    hit_record rec;
 
-color ray_c(const ray& r, const did_it_hit& world)
-{
-    hit_ah rec;
-    if(world.hit(r, 0, infinity, rec)){
-        return 0.5 * (rec.normal + color(1 , 1, 1));
+    // If we've exceeded the ray bounce limit, no more light is gathered
+    if (depth <= 0)
+        return color(0, 0, 0);
 
-    }
+    if (!world.hit(r, 0.001, infinity, rec))
+        return color(0.5, 0.7, 1.0);
 
+    ray scattered;
+    color attenuation;
+    color emitted = rec.mat->emitted(rec.u, rec.v, rec.p);
 
-    vec3 direction = unit_vec(r.direction());
+    if (!rec.mat->scatter(r, rec, attenuation, scattered))
+        return emitted;
 
-    auto a = 0.5 * (direction.y() + 1.0);
-    return (1.0 -a) * color(1.0,1.0,1.0) + a*color(0.5, 0.7, 1.0);
+    return emitted + attenuation * ray_c(scattered, world, depth-1);
 }
 
-
-
-// color ray_c(const ray& r)
-// {
-//     vec3 direction = unit_vec(r.direction());
-//     auto a = 0.5 * (direction.y() + 1.0);
-//     return (1.0 - a) * color(1.0, 1.0, 1.0) + a * color(0.5, 0.7, 1.0);
-// }
-
-
-
-int main()
-{
-    // Image
-    auto aspect_ratio = 16.0 / 9.0;
-    int im_width = 400;
-    int im_height = static_cast<int>(im_width / aspect_ratio);
-    im_height = (im_height < 1) ? 1 : im_height;
-
+int main() {
     // World
-
     hittable_list world;
 
-    world.add(make_shared<sphere>(point3(0,0,-1), 0.5));
-    world.add(make_shared<sphere>(point3(0,-100.5,-1), 100));
+    // Ground
+    auto ground_material = std::make_shared<lambertian>(color(0.5, 0.5, 0.5));
+    world.add(std::make_shared<sphere>(point3(0, -1000, 0), 1000, ground_material));
 
-    
-    // Open file for writing (instead of cout)
+    // Random small spheres
+    for (int a = -11; a < 11; a++) {
+        for (int b = -11; b < 11; b++) {
+            auto choose_mat = random_double();
+            point3 center(a + 0.9 * random_double(), 0.2, b + 0.9 * random_double());
+
+            if ((center - point3(4, 0.2, 0)).length() > 0.9) {
+                shared_ptr<material> sphere_material;
+
+                if (choose_mat < 0.8) {
+                    // Diffuse
+                    auto albedo = color(random_double() * random_double(),
+                                      random_double() * random_double(),
+                                      random_double() * random_double());
+                    sphere_material = make_shared<lambertian>(albedo);
+                    world.add(make_shared<sphere>(center, 0.2, sphere_material));
+                } else if (choose_mat < 0.95) {
+                    // Metal
+                    auto albedo = color(0.5 * (1 + random_double()),
+                                      0.5 * (1 + random_double()),
+                                      0.5 * (1 + random_double()));
+                    auto fuzz = random_double(0, 0.5);
+                    sphere_material = make_shared<metal>(albedo, fuzz);
+                    world.add(make_shared<sphere>(center, 0.2, sphere_material));
+                } else {
+                    // Glass
+                    sphere_material = make_shared<dielectric>(1.5);
+                    world.add(make_shared<sphere>(center, 0.2, sphere_material));
+                }
+            }
+        }
+    }
+
+    // Three main spheres
+    auto material1 = make_shared<dielectric>(1.5);
+    world.add(make_shared<sphere>(point3(0, 1, 0), 1.0, material1));
+
+    auto material2 = make_shared<lambertian>(color(0.4, 0.2, 0.1));
+    world.add(make_shared<sphere>(point3(-4, 1, 0), 1.0, material2));
+
+    auto material3 = make_shared<metal>(color(0.7, 0.6, 0.5), 0.0);
+    world.add(make_shared<sphere>(point3(4, 1, 0), 1.0, material3));
+
+    // Image
+    const auto aspect_ratio = 16.0 / 9.0;
+    const int image_width = 400;
+    const int image_height = std::max(1, static_cast<int>(image_width / aspect_ratio));
+
+    // Open output file
     std::ofstream outfile("image.ppm");
-    if (!outfile.is_open()) {
-        std::cerr << "Failed to open output file" << std::endl;
+    if (!outfile) {
+        std::cerr << "Error: Failed to open output file\n";
         return 1;
     }
     
     // Camera
-    auto focal_l = 1.0;
-    auto view_h = 2.0;
-    auto view_w = view_h * (double(im_width) / im_height);
-    auto camera_center = point3(0, 0, 0);
-    
-    // Horizontal and vertical vectors
-    auto view_u = vec3(view_w, 0, 0);
-    auto view_v = vec3(0, -view_h, 0);
-    
-    // Delta vectors between adjacent pixels
-    auto pixel_d_u = view_u / im_width;
-    auto pixel_d_v = view_v / im_height;
-    
-    // Top left pixel
-    auto view_topleft = camera_center - vec3(0, 0, focal_l) - view_u/2 - view_v/2;
-    auto pixel_loc = view_topleft + 0.5 * (pixel_d_u + pixel_d_v);
-    
-    // Write PPM header - use spaces consistently
-    outfile << "P3\n" << im_width << " " << im_height << "\n255\n";
-    
-    for(int j = 0; j < im_height; j++)
-    {    
-        std::cerr << "\rScanlines remaining: " << (im_height - j) << ' ' << std::flush;
-        for(int i = 0; i < im_width; i++)
-        {
-            auto pixel_center = pixel_loc + (i * pixel_d_u) + (j * pixel_d_v);
-            auto ray_direction = pixel_center - camera_center;
-            ray r(camera_center, ray_direction);
-            // color pixel_color = ray_c(r);
-            
+    point3 lookfrom(13, 2, 3);
+    point3 lookat(0, 0, 0);
+    vec3 vup(0, 1, 0);
+    auto dist_to_focus = 10.0;
+    auto aperture = 0.1;
+    auto vfov = 20.0;
 
-            color pixel_color = ray_c(r, world);            
-            write_color(outfile, pixel_color);
+    // Camera setup
+    const auto theta = degrees_to_radians(vfov);
+    const auto h = tan(theta/2);
+    const auto viewport_height = 2.0 * h;
+    const auto viewport_width = aspect_ratio * viewport_height;
+    
+    const auto w = unit_vector(lookfrom - lookat);
+    const auto u = unit_vector(cross(vup, w));
+    const auto v = cross(w, u);
+    
+    const auto origin = lookfrom;
+    const auto horizontal = dist_to_focus * viewport_width * u;
+    const auto vertical = dist_to_focus * viewport_height * v;
+    const auto lower_left_corner = origin - horizontal/2 - vertical/2 - dist_to_focus*w;
+    
+    // Render settings
+    const int samples_per_pixel = 100;
+    const int max_depth = 50;
+    
+    // Render to file
+    outfile << "P3\n" << image_width << ' ' << image_height << "\n255\n";
+
+    for (int j = image_height - 1; j >= 0; --j) {
+        std::cerr << "\rScanlines remaining: " << j << ' ' << std::flush;
+        for (int i = 0; i < image_width; ++i) {
+            color pixel_color(0, 0, 0);
+            for (int s = 0; s < samples_per_pixel; ++s) {
+                auto u = (i + random_double()) / (image_width-1);
+                auto v = (j + random_double()) / (image_height-1);
+                
+                // Create ray from camera through pixel
+                ray r(origin, lower_left_corner + u*horizontal + v*vertical - origin);
+                pixel_color += ray_c(r, world, max_depth);
+            }
+            write_color(outfile, pixel_color, samples_per_pixel);
         }
     }
     
@@ -99,5 +144,3 @@ int main()
     
     return 0;
 }
-
-

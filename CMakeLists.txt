@@ -14,7 +14,13 @@ set(SOURCES
 	src/ray.cpp
 	src/color.h
 	src/vec3.h
-	src/ray.h)
+	src/vec3.cpp
+	src/ray.h
+	src/interval.h
+	src/objects.h
+	src/hit_objects.h
+	src/material.h
+	)
 
 
 # add executable file

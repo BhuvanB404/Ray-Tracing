@@ -1,6 +1,8 @@
 file(REMOVE_RECURSE
-  "CMakeFiles/ray.dir/ray.cpp.o"
-  "CMakeFiles/ray.dir/ray.cpp.o.d"
+  "CMakeFiles/ray.dir/src/ray.cpp.o"
+  "CMakeFiles/ray.dir/src/ray.cpp.o.d"
+  "CMakeFiles/ray.dir/src/vec3.cpp.o"
+  "CMakeFiles/ray.dir/src/vec3.cpp.o.d"
   "ray"
   "ray.pdb"
 )
