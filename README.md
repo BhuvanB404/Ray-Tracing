@@ -9,7 +9,7 @@ This is a C++ implementation of a simple ray tracer, built from scratch. The pro
 
 ## Example Output
 
-![Ray Traced Image](images/raytraced_image.ppm)
+![Ray Traced Image](images/image.png)
 
 ## Building
 
